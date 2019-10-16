@@ -5,15 +5,23 @@ const { getPostList, getPostById } = require('../controller/post');
 const router = express.Router();
 
 /* GET list of posts. */
-router.get(GET_LIST, async (req, res) => {
-    const posts = await getPostList(req.header('Range'));
-    res.send(posts);
+router.get(GET_LIST, async (req, res, next) => {
+    try {
+        const posts = await getPostList(req.header('Range'));
+        res.send(posts);
+    } catch (e) {
+        next(e);
+    }
 });
 
 /* GET list of posts. */
-router.get(GET_BY_ID, async (req, res) => {
-    const post = await getPostById(req.params.id);
-    res.send(post);
+router.get(GET_BY_ID, async (req, res, next) => {
+    try {
+        const post = await getPostById(req.params.id);
+        res.send(post);
+    } catch (e) {
+        next(e);
+    }
 });
 
 module.exports = router;

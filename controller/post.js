@@ -28,7 +28,7 @@ const getPostById = async (id, isPublished = true) => {
             ['title', 'image', 'content', 'tags', 'author', 'date'],
             { published: isPublished, _id: id },
         );
-        if (!data.entries.length) return Promise.reject(404);
+        if (!data.entries.length) return Promise.reject(createError(404));
         return data.entries[0];
     } catch (e) {
         console.log(e);
