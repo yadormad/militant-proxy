@@ -1,16 +1,17 @@
 const createError = require('http-errors');
+const { genericListConverter } = require('../util');
 const { fetchPosts } = require('../service/post');
 
 const getPostList = async (rangeHeader, isPublished = true) => {
     try {
-        const [from, to] = rangeHeader.split('/');
+        const [from, to] = rangeHeader ? rangeHeader.split('/') : [null, null];
         const { data } = await fetchPosts(
             { from, to },
             ['title', 'image', 'excerpt', 'tags', 'author', 'date'],
             { published: isPublished },
             { _created: -1 },
         );
-        return data.entries;
+        return genericListConverter(data.entries);
     } catch (e) {
         console.log(e);
         if (e.response && e.response.status) {
