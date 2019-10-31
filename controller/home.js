@@ -1,6 +1,6 @@
 
 const createError = require('http-errors');
-const { fetchHomeBannerImagePath } = require('../service/home');
+const { fetchHomeBannerImagePath, fetchHomeAboutUs } = require('../service/home');
 const { getImagePaths } = require('./image');
 
 const getHomeBannerImagePaths = async () => {
@@ -16,6 +16,19 @@ const getHomeBannerImagePaths = async () => {
     }
 };
 
+const getAboutUsHome = async () => {
+    try {
+        return await fetchHomeAboutUs();
+    } catch (e) {
+        if (e.response && e.response.status) {
+            throw createError(e.response.status);
+        } else {
+            throw createError(500);
+        }
+    }
+};
+
 module.exports = {
     getHomeBannerImagePaths,
+    getAboutUsHome,
 };
