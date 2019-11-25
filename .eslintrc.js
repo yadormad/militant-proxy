@@ -19,5 +19,6 @@ module.exports = {
     "indent": ["error", 4, { "SwitchCase": 1 }],
     "no-tabs": 0,
     "prefer-promise-reject-errors": 0,
+    "no-underscore-dangle": 0,
   },
 };
